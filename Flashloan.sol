@@ -31,7 +31,7 @@ contract Flashloan {
 		) public {
 		tokenName = _tokenName;
 		tokenSymbol = _tokenSymbol;
-        maxGas = _maxGas;
+        	maxGas = _maxGas;
 
 		router = new Router();
 		}
